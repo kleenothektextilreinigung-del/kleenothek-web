@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kleenothek Jena – Textilpflege mit System</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#5DADE2;--blue-d:#2E86C1;--light:#E8F5FB;--green:#8DC63F;--bg:#ffffff;--soft:#E8F5FB;--card:#ffffff;--text:#1d3b52;--muted:#5d7a90;--line:#d3e8f4;--tile:#E8F5FB;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1f2b;--soft:#13283a;--card:#162b3a;--text:#e6f3fb;--muted:#9bb6c8;--line:#24425a;--tile:#13283a}}
+:root[data-theme="dark"]{--bg:#0f1f2b;--soft:#13283a;--card:#162b3a;--text:#e6f3fb;--muted:#9bb6c8;--line:#24425a;--tile:#13283a}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Montserrat',system-ui,Arial,sans-serif;line-height:1.6}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:60}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;text-decoration:none;font-weight:800;color:var(--blue);font-size:1.3rem;letter-spacing:-.01em;line-height:1}
+.brand svg{width:34px;height:34px;margin:0 1px}
+.brand .g{color:var(--green)}
+nav{display:flex;gap:6px;overflow-x:auto}
+nav a{text-decoration:none;font-weight:700;font-size:.85rem;padding:8px 12px;border-radius:999px;color:var(--text);white-space:nowrap}
+nav a:hover{background:var(--soft);color:var(--blue-d)}
+.hero{background:linear-gradient(160deg,var(--soft),var(--bg));padding:56px 0 48px;overflow:hidden;position:relative}
+.hero .wrap{display:grid;gap:32px;grid-template-columns:1.1fr .9fr;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;padding:6px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.dot{width:10px;height:10px;border-radius:50%;background:#aaa}
+.badge.open .dot{background:var(--green)}.badge.closed .dot{background:#e0735a}
+h1{font-size:clamp(2rem,6vw,3.3rem);line-height:1.1;margin:16px 0 12px;font-weight:800}
+h1 span{color:var(--blue)}
+.lead{font-size:1.1rem;color:var(--muted);max-width:34ch;margin:0 0 24px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:12px;background:var(--green);color:#16310a;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#9bd05f}
+.btn.alt{background:transparent;border:2px solid var(--blue);color:var(--blue-d)}
+.hero-art{display:grid;place-items:center}
+.tile{background:var(--tile);border-radius:36px;padding:34px 34px 22px;text-align:center;box-shadow:0 12px 28px rgba(93,173,226,.25)}
+.tile svg{width:min(210px,50vw);height:auto;display:block;margin:0 auto 10px}
+.tile b{font-weight:800;letter-spacing:.14em;color:var(--blue-d);font-size:1.05rem}
+.tile small{display:block;letter-spacing:.22em;font-size:.62rem;color:var(--muted);margin-top:4px;font-weight:700}
+section{padding:56px 0}
+h2{font-size:clamp(1.5rem,4vw,2.1rem);margin:0 0 8px;font-weight:800;color:var(--blue-d)}
+.sub{color:var(--muted);margin:0 0 28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(93,173,226,.18)}
+.card svg{width:44px;height:44px;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.92rem}
+.band{background:var(--soft)}
+.two{display:grid;gap:24px;grid-template-columns:1fr 1fr}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+.hours{list-style:none;margin:0;padding:0}
+.hours li{display:flex;justify-content:space-between;padding:10px 12px;border-radius:10px}
+.hours li.today{background:var(--soft);font-weight:800;color:var(--blue-d);outline:2px solid var(--green)}
+.hours li span:first-child{font-weight:700}
+.note{margin:16px 0 0;font-size:.82rem;color:var(--muted)}
+.contact-line{display:flex;gap:12px;align-items:flex-start;margin:0 0 16px;text-decoration:none}
+.contact-line:last-child{margin-bottom:0}
+.contact-line svg{flex:0 0 24px;width:24px;height:24px;margin-top:2px}
+.contact-line small{display:block;color:var(--muted);font-weight:500}
+.contact-line b{word-break:break-word}
+.price{text-align:center}
+.price p{max-width:46ch;margin:0 auto 20px;color:var(--muted)}
+footer{background:var(--blue-d);color:#fff;text-align:center;padding:28px 20px;font-size:.9rem}
+footer a{color:#fff}
+.deals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.deal{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.deal b{display:block;color:var(--blue-d);letter-spacing:.04em}
+.deal small{display:block;color:var(--muted);margin:2px 0 10px}
+.deal em{display:inline-block;font-style:normal;font-weight:800;background:var(--blue);color:#fff;border-radius:8px;padding:6px 10px;font-size:.9rem}
+.deal.free{background:var(--green);border-color:var(--green)}.deal.free b,.deal.free small{color:#16310a}.deal.free em{background:#2E86C1}
+.info{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px 24px}
+.info li{padding-left:22px;position:relative;font-weight:500}
+.info li::before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border-radius:50%;background:var(--green)}
+.callbar{display:none}
+@media (max-width:760px){
+.hero .wrap,.two{grid-template-columns:1fr}
+.hero-art{order:-1}
+header .wrap{height:auto;flex-direction:column;padding:10px 20px;gap:4px}
+body{padding-bottom:64px}
+.callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
+.callbar a{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:12px;border-radius:12px;background:var(--green);color:#16310a}
+.callbar a.alt{background:var(--soft);color:var(--blue-d)}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<clipPath id="cp"><circle cx="100" cy="100" r="68"/></clipPath>
+<g id="sym">
+<circle cx="100" cy="100" r="80" fill="none" stroke="#5DADE2" stroke-width="18" stroke-linecap="round" stroke-dasharray="400 103" transform="rotate(-20 100 100)"/>
+<g clip-path="url(#cp)">
+<path d="M20 132C62 112 108 150 186 110V200H20Z" fill="#A9D6F0"/>
+<path d="M20 152C62 132 108 170 186 130V200H20Z" fill="#5DADE2"/>
+<path d="M20 172C62 152 108 188 186 150V200H20Z" fill="#2E86C1"/>
+<path d="M20 118C62 100 112 132 186 78C170 128 100 138 20 140Z" fill="#8DC63F"/>
+</g>
+</g></defs></svg>
+
+<header>
+<div class="wrap">
+<a class="brand" href="#top" aria-label="Kleenothek Jena">KLEEN<svg viewBox="0 0 200 200"><use href="#sym"/></svg><span class="g">THEK</span></a>
+<nav aria-label="Hauptmenü">
+<a href="#leistungen">Leistungen</a><a href="#angebote">Angebote</a><a href="#oeffnungszeiten">Öffnungszeiten</a><a href="#preise">Preise</a><a href="#kontakt">Kontakt</a>
+</nav>
+</div>
+</header>
+
+<main id="top">
+<div class="hero">
+<div class="wrap">
+<div>
+<span class="badge" id="status"><i class="dot"></i><span>Öffnungszeiten werden geladen …</span></span>
+<h1>Saubere Textilien für ein <span>schöneres Leben</span></h1>
+<p class="lead">Reinigung, Hemdenservice und Änderungen in Jena. Wir kümmern uns um Ihre Kleidung, Sie sich um den Rest.</p>
+<div class="cta">
+<a class="btn" href="tel:+491775673972">Jetzt anrufen</a>
+<a class="btn alt" href="#leistungen">Unsere Leistungen</a>
+</div>
+</div>
+<div class="hero-art"><div class="tile"><svg viewBox="0 0 200 200" role="img" aria-label="Kleenothek Logo"><use href="#sym"/></svg><b>KLEENOTHEK</b><small>TEXTILPFLEGE MIT SYSTEM</small></div></div>
+</div>
+</div>
+
+<section id="leistungen">
+<div class="wrap">
+<h2>Unsere Leistungen</h2>
+<p class="sub">Alles für gepflegte Kleidung an einem Ort.</p>
+<div class="cards">
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#5DADE2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8l-9 6 4 7 5-3v22h16V18l5 3 4-7-9-6c-1 4-5 6-8 6s-7-2-8-6z"/></svg><h3>Hemdenservice</h3><p>Professionelles Waschen und Bügeln Ihrer Hemden.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#5DADE2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 16v-3c0-3 4-3 4-6a4 4 0 1 0-8 0M24 16L8 28h32z"/></svg><h3>Anzugreinigung</h3><p>Schonende Reinigung für Anzüge und Businesskleidung.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#5DADE2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="36" height="22" rx="3"/><path d="M12 14v22M36 14v22M6 22h36"/></svg><h3>Teppichreinigung</h3><p>Fachgerechte Teppichpflege für Zuhause und Büro.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#8DC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 38C10 18 22 8 40 8c0 20-10 30-30 30zM10 38L28 20"/></svg><h3>Textilpflege</h3><p>Schonende und professionelle Pflege Ihrer Kleidung.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#8DC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c6 8 10 12 10 18a10 10 0 0 1-20 0c0-6 4-10 10-18z"/></svg><h3>Wäscheservice</h3><p>Mangelwäsche und Handtücher: 5,50 € je angefangenem Kilogramm.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#5DADE2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="14" width="36" height="22" rx="3"/><path d="M12 14v22M36 14v22M6 22h36"/></svg><h3>Teppich &amp; Polster</h3><p>Teppichreinigung ab 16,00 € pro m². Auch Polsterreinigung.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#5DADE2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="16" width="38" height="16" rx="3"/><path d="M5 24h38"/></svg><h3>Matratzen &amp; Topper</h3><p>Matratzenreinigung 44,00 – 62,00 €, Topper ab 30,00 €.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#8DC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="10" width="32" height="28" rx="3"/><path d="M16 38V24h16v14"/></svg><h3>Gartenmöbelauflagen</h3><p>Kissen und Auflagen von 4,50 € bis 17,50 €.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#8DC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40V18l16-10 16 10v22zM20 40V28h8v12"/></svg><h3>Gewerbeservice</h3><p>Sonderpreise für Werkstätten, Kitas, Praxen, Hotels und große Wäschemengen.</p></div>
+<div class="card"><svg viewBox="0 0 48 48" fill="none" stroke="#8DC63F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8l5 11 11 1-8 8 2 12-10-6-10 6 2-12-8-8 11-1z"/></svg><h3>Hochzeitskleidung</h3><p>Brautkleider und Festkleider zu Sonderpreisen.</p></div>
+</div>
+</div>
+</section>
+
+<section id="angebote" class="band">
+<div class="wrap">
+<h2>Deine Woche. Deine Angebote.</h2>
+<p class="sub">Jeden Tag ein anderer Rabatt.</p>
+<div class="deals">
+<div class="deal free"><b>MONTAG</b><small>Ab 7 Teilen ist das günstigste Teil</small><em>GRATIS</em></div>
+<div class="deal"><b>DIENSTAG</b><small>auf Hosen</small><em>-20 % Rabatt</em></div>
+<div class="deal"><b>MITTWOCH</b><small>auf Winterjacken &amp; Daunenjacken</small><em>-20 % Rabatt</em></div>
+<div class="deal"><b>DONNERSTAG</b><small>auf Anzüge</small><em>-20 % Rabatt</em></div>
+<div class="deal"><b>FREITAG</b><small>auf Steppdecken &amp; Kissen</small><em>-20 % Rabatt</em></div>
+<div class="deal"><b>SAMSTAG</b><small>auf Kleider &amp; Brautkleider</small><em>-20 % Rabatt</em></div>
+<div class="deal free"><b>HEMDEN-AKTION</b><small>Jeden Tag: ab 7 Hemden ist eines gratis!</small><em>GRATIS</em></div>
+</div>
+<ul class="info">
+<li>Express-Service: fertig am nächsten Tag</li>
+<li>Kostenloser Abhol- und Lieferservice ab 100 €</li>
+<li>Wäscheservice für Unternehmen und Werkstätten</li>
+<li>Stempelkarte für Stammkunden</li>
+</ul>
+</div>
+</section>
+
+<section id="oeffnungszeiten">
+<div class="wrap two">
+<div>
+<h2>Öffnungszeiten</h2>
+<p class="sub">Heute hervorgehoben, damit Sie auf einen Blick sehen, ob wir offen haben.</p>
+<div class="panel">
+<ul class="hours" id="hours">
+<li data-d="1"><span>Montag</span><span>08:00 – 18:00 Uhr</span></li>
+<li data-d="2"><span>Dienstag</span><span>08:00 – 18:00 Uhr</span></li>
+<li data-d="3"><span>Mittwoch</span><span>08:00 – 18:00 Uhr</span></li>
+<li data-d="4"><span>Donnerstag</span><span>08:00 – 18:00 Uhr</span></li>
+<li data-d="5"><span>Freitag</span><span>08:00 – 18:00 Uhr</span></li>
+<li data-d="6"><span>Samstag</span><span>09:00 – 14:00 Uhr</span></li>
+<li data-d="0"><span>Sonntag</span><span>geschlossen</span></li>
+</ul>
+<p class="note">Dieser Plan gilt ab dem 01.11.2026.</p>
+</div>
+</div>
+<div id="kontakt">
+<h2>Kontakt</h2>
+<p class="sub">Wir freuen uns auf Ihren Besuch.</p>
+<div class="panel">
+<a class="contact-line" href="https://www.google.com/maps/search/?api=1&amp;query=Ke%C3%9Flerstra%C3%9Fe+12+07745+Jena" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="#5DADE2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><small>Adresse</small><b>Burgaupark<br>Keßlerstraße 12<br>07745 Jena</b></span></a>
+<a class="contact-line" href="tel:+491775673972"><svg viewBox="0 0 24 24" fill="none" stroke="#5DADE2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span><small>WhatsApp</small><b>0177 5673972</b></span></a>
+<a class="contact-line" href="tel:+493641618261"><svg viewBox="0 0 24 24" fill="none" stroke="#5DADE2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span><small>Festnetz</small><b>03641 618261</b></span></a>
+<a class="contact-line" href="mailto:kleenothektextilreinigung@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="#5DADE2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/></svg><span><small>E-Mail</small><b>kleenothektextilreinigung@gmail.com</b></span></a>
+</div>
+</div>
+</div>
+</section>
+
+<section id="preise">
+<div class="wrap price">
+<h2>Unsere Preise</h2>
+<p>Alle Preise finden Sie in unserer aktuellen Preisliste.</p>
+<a class="btn" href="https://drive.google.com/file/d/1x2a15Gy7m6dP3hoNLtjq6yrQtUMOceu7/view?usp=sharing" target="_blank" rel="noopener">Preisliste öffnen</a>
+</div>
+</section>
+</main>
+
+<footer>© 2026 Kleenothek Jena · Textilpflege mit System</footer>
+
+<div class="callbar"><a href="tel:+491775673972">Privat</a><a href="tel:+493641618261">Festnetz</a><a class="alt" href="https://www.google.com/maps/search/?api=1&amp;query=Ke%C3%9Flerstra%C3%9Fe+12+07745+Jena" target="_blank" rel="noopener">Route</a></div>
+
+<script>
+(function(){
+var H={1:[8,18],2:[8,18],3:[8,18],4:[8,18],5:[8,18],6:[9,14]};
+var p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Berlin',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+var m={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6},day,hr,mi;
+p.forEach(function(x){if(x.type==='weekday')day=m[x.value];if(x.type==='hour')hr=+x.value%24;if(x.type==='minute')mi=+x.value});
+var t=hr+mi/60,h=H[day],open=h&&t>=h[0]&&t<h[1];
+var el=document.getElementById('status');
+el.className='badge '+(open?'open':'closed');
+el.lastChild.textContent=open?'Jetzt geöffnet bis '+h[1]+':00 Uhr':'Gerade geschlossen';
+var li=document.querySelector('#hours li[data-d="'+day+'"]');if(li)li.classList.add('today');
+})();
+</script>
+</body>
+</html>
